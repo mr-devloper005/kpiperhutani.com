@@ -5,6 +5,8 @@ import { getProductKind } from '@/design/factory/get-product-kind'
 const { recipe } = getFactoryState()
 const productKind = getProductKind(recipe)
 
+// Monochrome, warm off-white — accent IS the base ink. Matches the reference's
+// editorial consulting language: no saturated brand color, black does the work.
 export const slot4BrandConfig = {
   siteName: siteIdentity.name,
   tagline: siteIdentity.tagline,
@@ -13,7 +15,7 @@ export const slot4BrandConfig = {
   productKind,
   ogImage: siteIdentity.ogImage,
   accents: {
-    primary: '#d32323',
-    surface: '#ffffff',
+    primary: '#3d2e2e',
+    surface: '#F5EBEB',
   },
 } as const

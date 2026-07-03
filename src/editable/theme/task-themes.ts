@@ -2,13 +2,10 @@ import type { CSSProperties } from 'react'
 import type { TaskKey } from '@/lib/site-config'
 
 /*
-  Yelp-style task surfaces.
+  Shared warm off-white editorial palette — every task inherits the same visual
+  system (matching the reference), only the kicker + note copy varies.
 
-  Every task (archive + detail) now shares one cohesive premium identity:
-  clean white surfaces, the signature Yelp red accent, hairline gray borders
-  and a single crisp sans-serif — exactly like Yelp. Per-task copy (kicker /
-  note) still varies so each section keeps a little voice, but the visual
-  language is unified. Tokens are delivered via CSS variables (`--tk-*`).
+  Tokens are delivered via CSS variables (`--tk-*`).
 */
 
 export type TaskTheme = {
@@ -32,34 +29,64 @@ export type TaskTheme = {
   radius: string
 }
 
-const YELP_FONT = "'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
+const DISPLAY_FONT =
+  "'Instrument Serif', 'Cormorant Garamond', 'Times New Roman', ui-serif, Georgia, serif"
+const BODY_FONT =
+  "'DM Sans', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
 
-// Shared Yelp palette — every task inherits this; only kicker/note differ.
 const base = {
   dark: false,
-  fontDisplay: YELP_FONT,
-  fontBody: YELP_FONT,
-  bg: '#ffffff',
-  surface: '#ffffff',
-  raised: '#f7f7f7',
-  text: '#1a1a1a',
-  muted: '#6b6b6b',
-  line: '#e6e6e6',
-  accent: '#d32323',
-  accentSoft: '#fdecec',
-  onAccent: '#ffffff',
-  glow: 'rgba(211,35,35,0.06)',
-  radius: '0.75rem',
+  fontDisplay: DISPLAY_FONT,
+  fontBody: BODY_FONT,
+  bg: '#F5EBEB',
+  surface: '#F5EBEB',
+  raised: '#E4D0D0',
+  text: '#3d2e2e',
+  muted: '#867070',
+  line: '#E4D0D0',
+  accent: '#3d2e2e',
+  accentSoft: '#E4D0D0',
+  onAccent: '#F5EBEB',
+  glow: 'rgba(61,46,46,0.08)',
+  radius: '12px',
 } satisfies Omit<TaskTheme, 'kicker' | 'note'>
 
 export const taskThemes: Record<TaskKey, TaskTheme> = {
-  article: { ...base, kicker: 'Articles', note: 'In-depth reads, guides and stories worth your time.' },
-  listing: { ...base, kicker: 'Businesses', note: 'Find, compare and connect with local businesses.' },
-  classified: { ...base, kicker: 'Marketplace', note: 'Fresh offers and listings, ready to act on.' },
-  image: { ...base, kicker: 'Photos', note: 'A visual feed of standout images and galleries.' },
-  sbm: { ...base, kicker: 'Bookmarks', note: 'Curated resources and links worth saving.' },
-  pdf: { ...base, kicker: 'Documents', note: 'Downloadable guides, reports and references.' },
-  profile: { ...base, kicker: 'People', note: 'Discover creators, businesses and profiles.' },
+  article: {
+    ...base,
+    kicker: 'Journal',
+    note: 'Long-form reads, essays, and reference dispatches.',
+  },
+  listing: {
+    ...base,
+    kicker: 'Local Directory',
+    note: 'A curated directory of places to visit, book, and get in touch with.',
+  },
+  classified: {
+    ...base,
+    kicker: 'Notice board',
+    note: 'Timely notices, offers, and short-form posts worth acting on.',
+  },
+  image: {
+    ...base,
+    kicker: 'Visual field',
+    note: 'A quieter, image-first look at what the community is publishing.',
+  },
+  sbm: {
+    ...base,
+    kicker: 'Saved links',
+    note: 'A shelf of resources, tools, and references worth returning to.',
+  },
+  pdf: {
+    ...base,
+    kicker: 'Reference Library',
+    note: 'Guides, whitepapers, and downloadable references you can carry with you.',
+  },
+  profile: {
+    ...base,
+    kicker: 'People & practices',
+    note: 'Independent voices, teams, and practices worth following.',
+  },
 }
 
 export function getTaskTheme(task: TaskKey): TaskTheme {
@@ -81,8 +108,6 @@ export function taskThemeStyle(task: TaskKey): CSSProperties {
     '--tk-on-accent': t.onAccent,
     '--tk-glow': t.glow,
     '--tk-radius': t.radius,
-    // Re-point the shared article-body accent vars so post HTML (headings,
-    // links) inherits this task's accent instead of the global site accent.
     '--slot4-accent': t.accent,
     '--slot4-accent-fill': t.accent,
     '--editable-font-display': t.fontDisplay,

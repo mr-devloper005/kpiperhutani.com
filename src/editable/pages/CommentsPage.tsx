@@ -117,7 +117,7 @@ export default function CommentsPage() {
                   setPage(1)
                 }}
                 placeholder="Search comments..."
-                className="h-11 w-full rounded-2xl border border-[var(--editable-border)] bg-white pl-9 pr-3 text-sm outline-none"
+                className="h-11 w-full rounded-full border border-[var(--editable-border-strong)] bg-transparent pl-9 pr-3 text-sm text-[var(--slot4-page-text)] outline-none placeholder:text-[var(--slot4-muted-text)]"
               />
             </div>
             <p className="text-sm text-muted-foreground">
